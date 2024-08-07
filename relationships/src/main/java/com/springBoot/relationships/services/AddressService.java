@@ -1,7 +1,8 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.Address;
+import com.springBoot.relationships.models.entity.Address;
 import com.springBoot.relationships.repositories.AddressRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AddressService {
-    @Autowired
-    public AddressRepository repository;
+    public final AddressRepository repository;
 
     public String insertAddress(Address address){
         address.setCreatedOn(LocalDate.now());

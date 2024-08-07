@@ -1,20 +1,20 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.User;
+import com.springBoot.relationships.models.entity.User;
 import com.springBoot.relationships.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    public UserService service;
+    public final UserService service;
 
     @GetMapping("/all")
     public List<User> getAllUsers(){

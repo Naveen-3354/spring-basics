@@ -1,7 +1,8 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.Product;
+import com.springBoot.relationships.models.entity.Product;
 import com.springBoot.relationships.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/product")
+@RequiredArgsConstructor
 public class ProductController {
 
-    @Autowired
-    public ProductService service;
+    public final ProductService service;
 
     @GetMapping("/all")
     public List<Product> getAllProducts(){

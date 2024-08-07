@@ -1,19 +1,23 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.Orders;
+import com.springBoot.relationships.models.entity.Orders;
 import com.springBoot.relationships.repositories.OrdersRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrdersService {
-    @Autowired
-    public OrdersRepository repository;
+
+    public final OrdersRepository repository;
     
     public String insertOrders(Orders orders) {
+        orders.setCreatedOn(LocalDate.now());
         repository.save(orders);
         return "Orders added.";
     }

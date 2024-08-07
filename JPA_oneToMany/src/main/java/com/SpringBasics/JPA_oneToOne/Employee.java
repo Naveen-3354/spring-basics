@@ -12,7 +12,7 @@ public class Employee {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "department_id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     @JsonBackReference
     private Department department;
 

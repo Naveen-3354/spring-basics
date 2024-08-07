@@ -1,7 +1,8 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.Address;
+import com.springBoot.relationships.models.entity.Address;
 import com.springBoot.relationships.services.AddressService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/address")
+@RequiredArgsConstructor
 public class AddressController {
 
-    @Autowired
-    public AddressService service;
+    public final AddressService service;
 
     @GetMapping("/all")
     public List<Address> getAllAddresss(){

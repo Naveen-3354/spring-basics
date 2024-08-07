@@ -1,7 +1,8 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.Cart;
+import com.springBoot.relationships.models.entity.Cart;
 import com.springBoot.relationships.services.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/cart")
+@RequiredArgsConstructor
 public class CartController {
 
-    @Autowired
-    public CartService service;
+    public final CartService service;
 
     @GetMapping("/all")
     public List<Cart> getAllCarts(){

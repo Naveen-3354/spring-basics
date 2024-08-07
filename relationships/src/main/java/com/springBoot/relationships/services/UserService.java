@@ -1,9 +1,9 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.User;
-import com.springBoot.relationships.models.enums.Status;
+import com.springBoot.relationships.models.entity.User;
 import com.springBoot.relationships.models.enums.UserRoles;
 import com.springBoot.relationships.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,21 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    public UserRepository repository;
+    public final UserRepository repository;
 
     public String insertUser(User user){
         user.setRoles(UserRoles.USER);
         user.setCreatedOn(LocalDate.now());
-        user.setStatus(Status.ACTIVE);
         repository.save(user);
         return "User added.";
     }
 
     public String insertManyUsers(List<User> users){
-        repository.saveAll(users.stream().peek(x-> x.setCreatedOn(LocalDate.now())).peek(x->x.setStatus(Status.ACTIVE)).toList());
+        repository.saveAll(users.stream().peek(x-> x.setCreatedOn(LocalDate.now())).peek(x->x.setRoles(UserRoles.USER)).toList());
         return "Users added.";
     }
 

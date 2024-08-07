@@ -1,19 +1,23 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.Category;
+import com.springBoot.relationships.models.entity.Category;
 import com.springBoot.relationships.repositories.CategoryRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
-    @Autowired
-    public CategoryRepository repository;
+
+    public final CategoryRepository repository;
 
     public String insertCategory(Category category) {
+        category.setCreatedOn(LocalDate.now());
         repository.save(category);
         return "Category added.";
     }

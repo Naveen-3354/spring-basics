@@ -1,7 +1,8 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.Category;
+import com.springBoot.relationships.models.entity.Category;
 import com.springBoot.relationships.services.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
+@RequiredArgsConstructor
 public class CategoryController {
 
-    @Autowired
-    public CategoryService service;
+    public final CategoryService service;
 
     @GetMapping("/all")
     public List<Category> getAllCategorys(){

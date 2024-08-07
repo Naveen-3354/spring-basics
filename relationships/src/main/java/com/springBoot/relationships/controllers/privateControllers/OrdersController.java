@@ -1,7 +1,8 @@
-package com.springBoot.relationships.controllers;
+package com.springBoot.relationships.controllers.privateControllers;
 
-import com.springBoot.relationships.models.Orders;
+import com.springBoot.relationships.models.entity.Orders;
 import com.springBoot.relationships.services.OrdersService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,10 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
+@RequiredArgsConstructor
 public class OrdersController {
 
-    @Autowired
-    public OrdersService service;
+    public final OrdersService service;
 
     @GetMapping("/all")
     public List<Orders> getAllOrderss(){

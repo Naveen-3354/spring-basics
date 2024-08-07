@@ -1,6 +1,6 @@
 package com.springBoot.relationships.repositories;
 
-import com.springBoot.relationships.models.CartItem;
+import com.springBoot.relationships.models.entity.CartItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

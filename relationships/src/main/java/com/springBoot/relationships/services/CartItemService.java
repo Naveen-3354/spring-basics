@@ -1,20 +1,23 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.CartItem;
+import com.springBoot.relationships.models.entity.CartItem;
 import com.springBoot.relationships.repositories.CartItemRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CartItemService {
 
-    @Autowired
-    public CartItemRepository repository;
+    public final CartItemRepository repository;
 
     public String insertCartItem(CartItem cartItem) {
+        cartItem.setCreatedOn(LocalDate.now());
         repository.save(cartItem);
         return "CartItem added.";
     }

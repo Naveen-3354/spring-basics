@@ -1,20 +1,23 @@
 package com.springBoot.relationships.services;
 
-import com.springBoot.relationships.models.Product;
+import com.springBoot.relationships.models.entity.Product;
 import com.springBoot.relationships.repositories.ProductRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
-    
-    @Autowired
-    public ProductRepository repository;
+
+    public final ProductRepository repository;
 
     public String insertProduct(Product product){
+        product.setCreatedOn(LocalDate.now());
         repository.save(product);
         return "Product added.";
     }
@@ -40,9 +43,7 @@ public class ProductService {
             existingProduct.setDescription(product.getDescription());
             existingProduct.setImage(product.getImage());
             existingProduct.setPrice(product.getPrice());
-            existingProduct.setColor(product.getColor());
             existingProduct.setStock(product.getStock());
-            existingProduct.setStatus(product.getStatus());
             repository.save(existingProduct);
             return "Product Updated.";
         }
