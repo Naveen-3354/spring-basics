@@ -47,12 +47,10 @@ public class JwtUtils {
                 .parseClaimsJws(token).getBody();
     }
     public String extractEmail(String token) {
-        return extractClaim(token).get("email").toString();
+        return extractClaim(token).get("Email").toString();
     }
     public Collection<? extends GrantedAuthority> extractRole(String token) {
-        Object roleClaim = extractClaim(token).get("role");
-        System.out.println("test2");
-
+        Object roleClaim = extractClaim(token).get("Role");
         if (roleClaim instanceof List<?>) {
             @SuppressWarnings("unchecked")
             List<HashMap<String,String>> roles = (List<HashMap<String,String>>) roleClaim;

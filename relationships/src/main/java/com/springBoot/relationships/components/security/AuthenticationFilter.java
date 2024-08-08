@@ -3,6 +3,7 @@ package com.springBoot.relationships.components.security;
 import com.springBoot.relationships.services.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,23 +25,17 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        final String auth = request.getHeader("Authorization");
-        final String jwt;
+        String cookieValue = getCookieValueByName(request, "token");
         final String email;
-        if(auth == null || !auth.startsWith("Bearer ")){
-            filterChain.doFilter(request, response);
-            return;
-        }
-        jwt = auth.substring(7);
-        email = jwtUtils.extractEmail(jwt);
-        if(email!=null && SecurityContextHolder.getContext().getAuthentication() == null){
+        email = jwtUtils.extractEmail(cookieValue);
+        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailService.loadUserByUsername(email);
-            if(jwtUtils.isTokenValid(jwt,userDetails)){
+            if (jwtUtils.isTokenValid(cookieValue, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
                                 userDetails,
                                 null,
-                                jwtUtils.extractRole(jwt)
+                                jwtUtils.extractRole(cookieValue)
                         );
                 authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request)
@@ -50,4 +45,18 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         }
         filterChain.doFilter(request, response);
     }
+
+    private String getCookieValueByName(HttpServletRequest request, String cookieName) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(cookieName)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
 }
+
+
